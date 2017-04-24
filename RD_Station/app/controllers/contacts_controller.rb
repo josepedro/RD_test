@@ -1,6 +1,7 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter  :verify_authenticity_token
+  
   # GET /contacts
   # GET /contacts.json
   def index
@@ -24,6 +25,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
+    puts "contact_params[:email]"
     @contact = Contact.new(contact_params)
 
     respond_to do |format|

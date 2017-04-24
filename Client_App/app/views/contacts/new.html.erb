@@ -1,8 +1,36 @@
 <h1>Contact</h1>
 
-<form action="/action_page.php">
+<!--<form action="/action_page.php">
   E-mail:<br>
   <input type="text" name="E-mail" value="linus@linux.com">
   <br>
   <button type="button">Click Me!</button>
-</form>
+</form>-->
+
+<%= form_for :contact do |f| %>
+  <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email, :value => "linus@linux.com" %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<script>
+$('form').submit(function() {
+    var valuesToSubmit = $(this).serialize();
+    //console.log(valuesToSubmit);
+    $.ajax({
+        type: "POST",
+        //url: $(this).attr('action'), //sumbits it to the given url of the form
+        url: "http://localhost:3001/contacts.json",
+        data: valuesToSubmit,
+        dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+    }).success(function(json){
+        console.log("success", json);
+    });
+    return false; // prevents normal behaviour
+});
+</script>
