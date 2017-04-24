@@ -18,10 +18,20 @@
   </p>
 <% end %>
 
+
+<script type="text/javascript">
+ <!--
+    function Warn() {
+       alert ("Contact saved.");
+    }
+ //-->
+</script>
+
 <script>
 $('form').submit(function() {
     var valuesToSubmit = $(this).serialize();
     //console.log(valuesToSubmit);
+    Warn();
     $.ajax({
         type: "POST",
         //url: $(this).attr('action'), //sumbits it to the given url of the form
