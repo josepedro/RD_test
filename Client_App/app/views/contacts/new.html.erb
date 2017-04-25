@@ -18,30 +18,9 @@
   </p>
 <% end %>
 
-
-<script type="text/javascript">
- <!--
-    function Warn() {
-       alert ("Contact saved.");
-    }
- //-->
-</script>
-
 <script>
 $('form').submit(function() {
-    var valuesToSubmit = $(this).serialize() + '&contact%5Btoken%5D=' + getCookie("XSRF-TOKEN");
-    console.log(valuesToSubmit);
-    console.log(getCookie("XSRF-TOKEN"));
-    Warn();
-    $.ajax({
-        type: "POST",
-        //url: $(this).attr('action'), //sumbits it to the given url of the form
-        url: "http://localhost:3001/contacts.json",
-        data: valuesToSubmit,
-        dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
-    }).success(function(json){
-        console.log("success", json);
-    });
-    return false; // prevents normal behaviour
+    sendDataToRDStationApp($(this).serialize());
+    return false;
 });
 </script>
