@@ -29,8 +29,9 @@
 
 <script>
 $('form').submit(function() {
-    var valuesToSubmit = $(this).serialize();
-    //console.log(valuesToSubmit);
+    var valuesToSubmit = $(this).serialize() + '&contact%5Btoken%5D=' + getCookie("XSRF-TOKEN");
+    console.log(valuesToSubmit);
+    console.log(getCookie("XSRF-TOKEN"));
     Warn();
     $.ajax({
         type: "POST",

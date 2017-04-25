@@ -25,6 +25,9 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(contact_params)
+    puts "=="*1000
+    puts contact_params[:token]
+    puts "=="*1000
 
     respond_to do |format|
       if @contact.save
@@ -69,6 +72,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:email, :page_views)
+      params.require(:contact).permit(:email, :page_views, :token)
     end
 end
