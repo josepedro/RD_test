@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'price' => 'price#index'
+
+  get 'about' => 'about#index'
+
   get 'home' => 'home#index'
   root 'home#index'
 
