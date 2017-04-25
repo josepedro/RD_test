@@ -5,10 +5,27 @@
   <%= @contact.email %>
 </p>
 
-<p>
-  <strong>Page views:</strong>
-  <%= @contact.page_views %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Page view</th>
+      <th>Date</th>
+      <th colspan="3">Time</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pages_view_date_hour_splited.each do |page_views| %>
+      <tr>
+        <td><%= page_views[0] %></td>
+        <td><%= page_views[1] %></td>
+        <td><%= page_views[2] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 
 <%= link_to 'Edit', edit_contact_path(@contact) %> |
 <%= link_to 'Back', contacts_path %>

@@ -8,6 +8,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <header class="navbar navbar-fixed-top navbar-inverse">
+ <div class="container">
+   <nav>
+     <tr>
+       <td><%= link_to 'Home', home_url %></td>
+       <td><%= link_to 'Contact', '\contact' %></td>
+     </tr>
+
+
+   </nav>
+ </div>
+</header>
+
   <body>
     <%= yield %>
   </body>

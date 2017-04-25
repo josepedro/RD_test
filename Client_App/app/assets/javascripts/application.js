@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 function getCookie(name) {
   var value = "; " + document.cookie;
@@ -43,16 +42,18 @@ function deleteAllCookies() {
 }
 //deleteAllCookies();
 
-console.log("Eae galera");
-
-var page_view = window.location.href;
-var currentdate = new Date();
-var datetime = currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/"
-                + currentdate.getFullYear() + "@"
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
-var page_view_information = page_view + "@" + datetime;
-document.cookie = "page-views="+page_view_information;
-console.log(getCookie("page-views"));
+function getPageInformations(){
+  var page_view = window.location.pathname;
+  var currentdate = new Date();
+  var datetime = currentdate.getDate() + "/"
+                  + (currentdate.getMonth()+1)  + "/"
+                  + currentdate.getFullYear() + "@"
+                  + currentdate.getHours() + ":"
+                  + currentdate.getMinutes() + ":"
+                  + currentdate.getSeconds();
+  var page_view_information = page_view + "@" + datetime;
+  var page_views_informations = getCookie("page-views") + "@@"
+                                + page_view_information;
+  document.cookie = "page-views="+page_views_informations;
+  console.log(getCookie("page-views"));
+}

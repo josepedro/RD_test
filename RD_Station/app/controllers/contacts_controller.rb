@@ -10,6 +10,13 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    string_pages_view = @contact.page_views
+    string_pages_view.slice! "undefined@@"
+    array_pages_view_date_hour = string_pages_view.split("@@")
+    @pages_view_date_hour_splited = []
+    array_pages_view_date_hour.each do |page_view|
+      @pages_view_date_hour_splited << page_view.split("@")
+    end
   end
 
   # GET /contacts/new
@@ -25,9 +32,6 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(contact_params)
-    puts "=="*1000
-    puts contact_params[:token]
-    puts "=="*1000
 
     respond_to do |format|
       if @contact.save
