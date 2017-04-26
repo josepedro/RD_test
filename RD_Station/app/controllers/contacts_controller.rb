@@ -1,6 +1,8 @@
 class ContactsController < ApplicationController
+  include ContactsHelper
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
+
   # GET /contacts
   # GET /contacts.json
   def index
@@ -10,13 +12,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-    string_pages_view = @contact.page_views
-    string_pages_view.slice! "undefined@@"
-    array_pages_view_date_hour = string_pages_view.split("@@")
-    @pages_view_date_hour_splited = []
-    array_pages_view_date_hour.each do |page_view|
-      @pages_view_date_hour_splited << page_view.split("@")
-    end
+    @pages_view_date_hour_splited = get_page_views_parsed(@contact.page_views)
   end
 
   # GET /contacts/new
@@ -31,7 +27,14 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    @contact = Contact.new(email: contact_params[:email],
+      client_id: contact_params[:client_id])
+    pages_views_array = get_page_views_parsed(contact_params[:page_views])
+    pages_views_array.each do |page_view|
+      @contact.page_views << PageView.new(page: page_view[0],
+      data: page_view[1], time: page_view[2])
+    end
+
     respond_to do |format|
       if @contact.save
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
