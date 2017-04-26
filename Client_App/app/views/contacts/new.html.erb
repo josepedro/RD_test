@@ -1,5 +1,6 @@
 <script>
   getPageInformations();
+  updateDataInRDStationApp();
 </script>
 
 <h1>Contact</h1>
@@ -14,7 +15,7 @@
 <%= form_for :contact do |f| %>
   <p>
     <%= f.label :email %><br>
-    <%= f.text_field :email, :value => "linus@linux.com" %>
+    <%= f.text_field :email, :value => "linus@linux.com", :required => true %>
   </p>
 
   <p>

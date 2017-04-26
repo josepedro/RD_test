@@ -32,7 +32,6 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(contact_params)
-
     respond_to do |format|
       if @contact.save
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
@@ -68,6 +67,18 @@ class ContactsController < ApplicationController
     end
   end
 
+  def update_outside
+    client_id = contact_params[:client_id]
+    if Contact.exists?(client_id: client_id)
+      @contact = Contact.find_by(client_id: client_id)
+      if @contact.update(page_views: contact_params[:page_views])
+        return render nothing: true, status: :ok
+      else
+        return render nothing: true, status: :unprocessable_entity
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -76,6 +87,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:email, :page_views, :token)
+      params.require(:contact).permit(:email, :page_views, :client_id)
     end
 end
