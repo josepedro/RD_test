@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-    @pages_view_date_hour_splited = get_page_views_parsed(@contact.page_views)
+    @page_views_array = @contact.page_views.sort_by{|u| u.time}
   end
 
   # GET /contacts/new
@@ -32,7 +32,7 @@ class ContactsController < ApplicationController
     pages_views_array = get_page_views_parsed(contact_params[:page_views])
     pages_views_array.each do |page_view|
       @contact.page_views << PageView.new(page: page_view[0],
-      data: page_view[1], time: page_view[2])
+      date: page_view[1], time: page_view[2])
     end
 
     respond_to do |format|
@@ -63,6 +63,7 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
+    @contact.page_views.destroy
     @contact.destroy
     respond_to do |format|
       format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
@@ -74,7 +75,13 @@ class ContactsController < ApplicationController
     client_id = contact_params[:client_id]
     if Contact.exists?(client_id: client_id)
       @contact = Contact.find_by(client_id: client_id)
-      if @contact.update(page_views: contact_params[:page_views])
+      @contact.page_views.destroy_all
+      pages_views_array = get_page_views_parsed(contact_params[:page_views])
+      pages_views_array.each do |page_view|
+        @contact.page_views << PageView.new(page: page_view[0],
+        date: page_view[1], time: page_view[2])
+      end
+      if @contact.save
         return render nothing: true, status: :ok
       else
         return render nothing: true, status: :unprocessable_entity

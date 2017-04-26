@@ -15,11 +15,11 @@
   </thead>
 
   <tbody>
-    <% @pages_view_date_hour_splited.each do |page_views| %>
+    <% @page_views_array.each do |page_views| %>
       <tr>
-        <td><%= page_views[0] %></td>
-        <td><%= page_views[1] %></td>
-        <td><%= page_views[2] %></td>
+        <td><%= page_views.page %></td>
+        <td><%= page_views.date %></td>
+        <td><%= page_views.time %></td>
       </tr>
     <% end %>
   </tbody>

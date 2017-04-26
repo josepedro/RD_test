@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170426213430) do
 
   create_table "page_views", force: :cascade do |t|
     t.string   "page"
-    t.string   "data"
+    t.string   "date"
     t.string   "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
