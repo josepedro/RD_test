@@ -9,8 +9,8 @@ function updateDataInRDStationApp(){
                         + '&contact%5Bpage_views%5D=' + getCookie("page-views");
   $.ajax({
       type: "POST",
-      //url: "http://localhost:3001/update_outside", //local
-      url: "https://sleepy-beach-18308.herokuapp.com/update_outside", //remote
+      url: "http://localhost:3001/update_outside", //local
+      //url: "https://sleepy-beach-18308.herokuapp.com/update_outside", //remote
       data: valuesToSubmit,
       dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
   });
@@ -25,8 +25,8 @@ function sendDataToRDStationApp(e_mail_serialized) {
     alert ("Contact saved.");
     $.ajax({
         type: "POST",
-        //url: "http://localhost:3001/contacts.json", //local
-        url: "https://sleepy-beach-18308.herokuapp.com/contacts.json", //remote
+        url: "http://localhost:3001/contacts.json", //local
+        //url: "https://sleepy-beach-18308.herokuapp.com/contacts.json", //remote
         data: valuesToSubmit,
         dataType: "JSON"
     });
