@@ -7,11 +7,10 @@ function getCookie(name) {
 function updateDataInRDStationApp(){
   var valuesToSubmit = '&contact%5Bclient_id%5D=' + getCookie("client-id")
                         + '&contact%5Bpage_views%5D=' + getCookie("page-views");
-  console.log("Passed");
   $.ajax({
       type: "POST",
-      //url: $(this).attr('action'), //sumbits it to the given url of the form
-      url: "http://localhost:3001/update_outside",
+      //url: "http://localhost:3001/update_outside", //local
+      url: "https://sleepy-beach-18308.herokuapp.com/update_outside", //remote
       data: valuesToSubmit,
       dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
   });
@@ -26,7 +25,8 @@ function sendDataToRDStationApp(e_mail_serialized) {
     alert ("Contact saved.");
     $.ajax({
         type: "POST",
-        url: "http://localhost:3001/contacts.json",
+        //url: "http://localhost:3001/contacts.json", //local
+        url: "https://sleepy-beach-18308.herokuapp.com/contacts.json", //remote
         data: valuesToSubmit,
         dataType: "JSON"
     });
