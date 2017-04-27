@@ -1,5 +1,4 @@
 class ContactsController < ApplicationController
-  include ContactsHelper
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
 
@@ -98,5 +97,15 @@ class ContactsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:email, :page_views, :client_id)
+    end
+
+    def get_page_views_parsed(string_pages_view)
+      string_pages_view.slice! "undefined@@"
+      array_pages_view_date_hour = string_pages_view.split("@@")
+      pages_view_date_hour_splited = []
+      array_pages_view_date_hour.each do |page_view|
+        pages_view_date_hour_splited << page_view.split("@")
+      end
+      return pages_view_date_hour_splited
     end
 end

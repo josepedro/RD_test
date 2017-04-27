@@ -57,3 +57,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rack-cors'
 
 gem 'angular_rails_csrf'
+
+gem 'rspec'
+
+gem 'rspec-rails'
+
+gem 'rails-controller-testing'
